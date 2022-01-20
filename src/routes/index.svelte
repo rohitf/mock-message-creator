@@ -54,7 +54,7 @@
 
 <body class="p-4">
 	<div class="grid place-items-center text-center">
-		<main class="mt-4 w-fit rounded-md shadow-md">
+		<main class="mt-4 rounded-md shadow-md">
 			<section class="header flex justify-center w-96 p-4 rounded-t-md">
 				<i class="fas fa-comment-alt text-2xl" />
 				<div
@@ -67,7 +67,8 @@
 				</div>
 			</section>
 			<section
-				class="flex flex-col h-[500px] bg-white pb-4 rounded-b-md overflow-y-scroll"
+				class="flex flex-col h-[500px] bg-white pb-4 rounded-b-md overflow-y-scroll
+				w-96 max-w-96 px-4"
 				on:dblclick={addMessage}
 			>
 				{#each messages as { ownMessage, content }, i}
@@ -82,12 +83,12 @@
 								on:contextmenu={(e) => deleteMessage(e, i)}
 								on:input={(e) =>
 									(messages[i].content = e.target.innerText)}
-								class="bg-gray-200 rounded-lg mr-2 p-3 text-left whitespace-pre"
+								class="bg-gray-200 rounded-lg mr-2 p-3 text-left"
 							>
 								{content}
 							</div>
 							<div
-								class="avatar bg-blue-500 mr-4"
+								class="avatar w-10 bg-blue-500"
 								on:click={() => (ownMessage = !ownMessage)}
 							>
 								<i class="fas fa-user" />
@@ -96,10 +97,10 @@
 					{:else}
 						<div
 							transition:fly={{ x: -200, duration: 400 }}
-							class="flex ml-4 mt-4"
+							class="flex mt-4"
 						>
 							<div
-								class="avatar bg-purple-500"
+								class="avatar w-12 bg-purple-500"
 								on:click={() => (ownMessage = !ownMessage)}
 							>
 								{initials}
@@ -108,8 +109,9 @@
 								contenteditable
 								spellcheck="false"
 								on:contextmenu={(e) => deleteMessage(e, i)}
-								on:input={(e) =>
-									(messages[i].content = e.target.innerText)}
+								on:input={(e) => 
+									messages[i].content = e.target.innerText;
+								}
 								class="bg-gray-200 rounded-lg ml-2 p-3 text-left"
 							>
 								{content}
@@ -147,6 +149,10 @@
 	}
 
 	.avatar {
-		@apply grid place-items-center text-white w-10 h-10 rounded-full cursor-pointer;
+		@apply grid place-items-center text-white h-10 rounded-full cursor-pointer;
+	}
+
+	[contenteditable] {
+		white-space: pre;
 	}
 </style>
