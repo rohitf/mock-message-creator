@@ -1,34 +1,42 @@
 <script lang="ts">
+	import { browser } from "$app/env";
 	import { fly } from "svelte/transition";
-
-	let otherPerson = "The General";
-	$: initials = otherPerson
-		.split(" ")
-		.map((s) => s.charAt(0).toUpperCase())
-		.join("");
 
 	interface Message {
 		ownMessage: boolean;
 		content: string;
 	}
+	let messages: Message[] = [];
 
-	let messages: Message[] = [
-		{
-			ownMessage: true,
-			content: "Hey, any tips for the exam?",
-		},
-		{
-			ownMessage: false,
-			content: "Do not flee in my car",
-		},
-		{
-			ownMessage: true,
-			content: "Umm...",
-		},
-	];
+	if (browser) {
+		const savedMessages = JSON.parse(localStorage.getItem("messages"));
+		messages = savedMessages || [
+			{
+				ownMessage: true,
+				content: "Hey, any tips for the exam?",
+			},
+			{
+				ownMessage: false,
+				content: "Do not flee in my car",
+			},
+			{
+				ownMessage: true,
+				content: "Umm...",
+			},
+		];
+	}
+
+	$: if (browser && messages.length) {
+		localStorage.setItem("messages", JSON.stringify(messages));
+	}
+
+	let chattingWith = "The General";
+	$: initials = chattingWith
+		.split(" ")
+		.map((s) => s.charAt(0).toUpperCase())
+		.join("");
 
 	function addMessage() {
-		console.log("clicked dbl");
 		messages = [
 			...messages,
 			{
@@ -51,10 +59,11 @@
 				<i class="fas fa-comment-alt text-2xl" />
 				<div
 					contenteditable
+					spellcheck="false"
 					class="text-xl bg-transparent ml-3"
-					bind:textContent={otherPerson}
+					bind:textContent={chattingWith}
 				>
-					{otherPerson}
+					{chattingWith}
 				</div>
 			</section>
 			<section
@@ -64,12 +73,15 @@
 				{#each messages as { ownMessage, content }, i}
 					{#if ownMessage}
 						<div
-							transition:fly={{ x: 200, duration: 500 }}
+							transition:fly={{ x: 200, duration: 400 }}
 							class="flex mt-4 justify-end"
 						>
 							<div
 								contenteditable
+								spellcheck="false"
 								on:contextmenu={(e) => deleteMessage(e, i)}
+								on:input={(e) =>
+									(messages[i].content = e.target.innerText)}
 								class="bg-gray-200 rounded-lg mr-2 p-3 text-left"
 							>
 								{content}
@@ -83,7 +95,7 @@
 						</div>
 					{:else}
 						<div
-							transition:fly={{ x: -200, duration: 500 }}
+							transition:fly={{ x: -200, duration: 400 }}
 							class="flex ml-4 mt-4"
 						>
 							<div
@@ -94,7 +106,10 @@
 							</div>
 							<div
 								contenteditable
+								spellcheck="false"
 								on:contextmenu={(e) => deleteMessage(e, i)}
+								on:input={(e) =>
+									(messages[i].content = e.target.innerText)}
 								class="bg-gray-200 rounded-lg ml-2 p-3 text-left"
 							>
 								{content}
@@ -111,7 +126,7 @@
 				<li>Click message to edit</li>
 				<li>Click sender icon to switch sender</li>
 				<li>Right click message to remove</li>
-				<li>Scroll to see more messages</li>
+				<li>Scroll to see all messages</li>
 			</ul>
 		</div>
 	</div>
