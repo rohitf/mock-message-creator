@@ -60,7 +60,7 @@
 				<div
 					contenteditable
 					spellcheck="false"
-					class="text-xl bg-transparent ml-3"
+					class="text-xl bg-transparent ml-3 whitespace-pre"
 					bind:textContent={chattingWith}
 				>
 					{chattingWith}
@@ -82,7 +82,7 @@
 								on:contextmenu={(e) => deleteMessage(e, i)}
 								on:input={(e) =>
 									(messages[i].content = e.target.innerText)}
-								class="bg-gray-200 rounded-lg mr-2 p-3 text-left"
+								class="bg-gray-200 rounded-lg mr-2 p-3 text-left whitespace-pre"
 							>
 								{content}
 							</div>
