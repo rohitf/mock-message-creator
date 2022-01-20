@@ -55,8 +55,8 @@
 
 <body class="p-4">
 	<div class="grid place-items-center text-center">
-		<main class="mt-4 rounded-md shadow-md">
-			<section class="header flex justify-center w-96 p-4 rounded-t-md">
+		<main class="mt-4 rounded-md shadow-md w-5/6 sm:w-96 ">
+			<section class="header flex justify-center p-4 rounded-t-md">
 				<i class="fas fa-comment-alt text-2xl" />
 				<div
 					contenteditable
@@ -68,8 +68,8 @@
 				</div>
 			</section>
 			<section
-				class="flex flex-col h-[500px] bg-white pb-4 rounded-b-md overflow-y-scroll
-				w-96 max-w-96 px-4"
+				class="screen flex flex-col h-[500px] bg-white pb-4 rounded-b-md overflow-y-scroll
+				px-4"
 				on:dblclick={addMessage}
 			>
 				{#each messages as { ownMessage, content }, i}
@@ -84,7 +84,7 @@
 								on:contextmenu={(e) => deleteMessage(e, i)}
 								on:input={(e) =>
 									(messages[i].content = e.target.innerText)}
-								class="bg-gray-200 rounded-lg mr-2 p-3 text-left"
+								class="mr-2"
 							>
 								{content}
 							</div>
@@ -114,7 +114,7 @@
 									console.log(e.target);
 									messages[i].content = e.target.innerText;
 								}}
-								class="bg-gray-200 rounded-lg ml-2 p-3 text-left"
+								class="ml-2"
 							>
 								{content}
 							</div>
@@ -154,7 +154,7 @@
 		@apply grid place-items-center text-white h-10 rounded-full cursor-pointer;
 	}
 
-	[contenteditable] {
-		white-space: pre;
+	.screen [contenteditable] {
+		@apply bg-gray-200 rounded-lg max-w-[12.5rem] mr-2 p-3 text-left whitespace-normal;
 	}
 </style>
