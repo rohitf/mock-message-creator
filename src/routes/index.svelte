@@ -37,6 +37,7 @@
 		.join("");
 
 	function addMessage() {
+		debugger;
 		messages = [
 			...messages,
 			{
@@ -109,9 +110,10 @@
 								contenteditable
 								spellcheck="false"
 								on:contextmenu={(e) => deleteMessage(e, i)}
-								on:input={(e) => 
+								on:input={(e) => {
+									console.log(e.target);
 									messages[i].content = e.target.innerText;
-								}
+								}}
 								class="bg-gray-200 rounded-lg ml-2 p-3 text-left"
 							>
 								{content}
