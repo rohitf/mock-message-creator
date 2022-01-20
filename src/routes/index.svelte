@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { fly } from "svelte/transition";
+
 	let otherPerson = "The General";
 	$: initials = otherPerson
 		.split(" ")
@@ -42,71 +44,77 @@
 	}
 </script>
 
-<body
-	class="w-screen h-screen absolute left-0 top-0 grid place-items-center text-center p-4"
->
-	<main class="w-fit rounded-md shadow-md">
-		<section class="header flex justify-center w-96 p-4 rounded-t-md">
-			<i class="fas fa-comment-alt text-2xl" />
-			<div
-				contenteditable
-				class="text-xl bg-transparent ml-3"
-				bind:textContent={otherPerson}
+<body class="w-screen h-screen p-4">
+	<div class="grid place-items-center text-center">
+		<main class="mt-4 w-fit rounded-md shadow-md">
+			<section class="header flex justify-center w-96 p-4 rounded-t-md">
+				<i class="fas fa-comment-alt text-2xl" />
+				<div
+					contenteditable
+					class="text-xl bg-transparent ml-3"
+					bind:textContent={otherPerson}
+				>
+					{otherPerson}
+				</div>
+			</section>
+			<section
+				class="flex flex-col h-[500px] bg-white rounded-b-md overflow-y-scroll"
+				on:dblclick={addMessage}
 			>
-				{otherPerson}
-			</div>
-		</section>
-		<section
-			class="flex flex-col h-[500px] bg-white rounded-b-md overflow-y-scroll"
-			on:dblclick={addMessage}
-		>
-			{#each messages as { ownMessage, content }, i}
-				{#if ownMessage}
-					<div class="flex mt-4 justify-end">
+				{#each messages as { ownMessage, content }, i}
+					{#if ownMessage}
 						<div
-							contenteditable
-							on:contextmenu={(e) => deleteMessage(e, i)}
-							class="bg-gray-200 rounded-lg mr-2 p-3 text-left"
+							transition:fly={{ x: 200, duration: 500 }}
+							class="flex mt-4 justify-end"
 						>
-							{content}
+							<div
+								contenteditable
+								on:contextmenu={(e) => deleteMessage(e, i)}
+								class="bg-gray-200 rounded-lg mr-2 p-3 text-left"
+							>
+								{content}
+							</div>
+							<div
+								class="avatar bg-blue-500 mr-4"
+								on:click={() => (ownMessage = !ownMessage)}
+							>
+								<i class="fas fa-user" />
+							</div>
 						</div>
+					{:else}
 						<div
-							class="avatar bg-blue-500 mr-4"
-							on:click={() => (ownMessage = !ownMessage)}
+							transition:fly={{ x: -200, duration: 500 }}
+							class="flex ml-4 mt-4"
 						>
-							<i class="fas fa-user" />
+							<div
+								class="avatar bg-purple-500"
+								on:click={() => (ownMessage = !ownMessage)}
+							>
+								{initials}
+							</div>
+							<div
+								contenteditable
+								on:contextmenu={(e) => deleteMessage(e, i)}
+								class="bg-gray-200 rounded-lg ml-2 p-3 text-left"
+							>
+								{content}
+							</div>
 						</div>
-					</div>
-				{:else}
-					<div class="flex ml-4 mt-4">
-						<div
-							class="avatar bg-purple-500"
-							on:click={() => (ownMessage = !ownMessage)}
-						>
-							{initials}
-						</div>
-						<div
-							contenteditable
-							on:contextmenu={(e) => deleteMessage(e, i)}
-							class="bg-gray-200 rounded-lg ml-2 p-3 text-left"
-						>
-							{content}
-						</div>
-					</div>
-				{/if}
-			{/each}
-		</section>
-	</main>
-	<h1 class="text-2xl text-gray-700">
-		<ul class="list-disc text-left">
-			<li>Click name in header to edit</li>
-			<li>Double click screen to add message</li>
-			<li>Click message to edit</li>
-			<li>Click sender icon to switch sender</li>
-			<li>Right click message to remove</li>
-			<li>Scroll to see more messages</li>
-		</ul>
-	</h1>
+					{/if}
+				{/each}
+			</section>
+		</main>
+		<div class="mt-8 text-2xl text-gray-700">
+			<ul class="list-disc text-left">
+				<li>Click name in header to edit</li>
+				<li>Double click screen to add message</li>
+				<li>Click message to edit</li>
+				<li>Click sender icon to switch sender</li>
+				<li>Right click message to remove</li>
+				<li>Scroll to see more messages</li>
+			</ul>
+		</div>
+	</div>
 </body>
 
 <style>
