@@ -55,7 +55,7 @@
 
 <body class="p-4">
 	<div class="grid place-items-center text-center">
-		<main class="mt-4 rounded-md shadow-md w-5/6 sm:w-96 ">
+		<main class="mt-4 rounded-md shadow-md w-full sm:w-96 ">
 			<section class="header flex justify-center p-4 rounded-t-md">
 				<i class="fas fa-comment-alt text-2xl" />
 				<div
@@ -84,7 +84,7 @@
 								on:contextmenu={(e) => deleteMessage(e, i)}
 								on:input={(e) =>
 									(messages[i].content = e.target.innerText)}
-								class="mr-2"
+								class="ml-2 max-w-[10rem] sm:max-w-[14rem]"
 							>
 								{content}
 							</div>
@@ -114,7 +114,7 @@
 									console.log(e.target);
 									messages[i].content = e.target.innerText;
 								}}
-								class="ml-2"
+								class="ml-2 max-w-[10rem] sm:max-w-[14rem]"
 							>
 								{content}
 							</div>
@@ -155,6 +155,6 @@
 	}
 
 	.screen [contenteditable] {
-		@apply bg-gray-200 rounded-lg max-w-[12.5rem] mr-2 p-3 text-left whitespace-normal;
+		@apply bg-gray-200 rounded-lg mr-2 p-3 text-left whitespace-normal;
 	}
 </style>
