@@ -67,15 +67,12 @@
 				</div>
 			</section>
 			<section
-				class="flex flex-col h-[500px] bg-white rounded-b-md overflow-y-scroll"
+				class="flex flex-col h-[500px] bg-white pb-4 rounded-b-md overflow-y-scroll"
 				on:dblclick={addMessage}
 			>
 				{#each messages as { ownMessage, content }, i}
 					{#if ownMessage}
-						<div
-							transition:fly={{ x: 200, duration: 400 }}
-							class="flex mt-4 justify-end"
-						>
+						<div class="flex mt-4 justify-end">
 							<div
 								contenteditable
 								spellcheck="false"
@@ -94,10 +91,7 @@
 							</div>
 						</div>
 					{:else}
-						<div
-							transition:fly={{ x: -200, duration: 400 }}
-							class="flex ml-4 mt-4"
-						>
+						<div class="flex ml-4 mt-4">
 							<div
 								class="avatar bg-purple-500"
 								on:click={() => (ownMessage = !ownMessage)}
@@ -143,7 +137,6 @@
 
 	.header {
 		background: rgba(255, 255, 255, 0.6);
-		backdrop-filter: blur(10px);
 	}
 
 	.avatar {
