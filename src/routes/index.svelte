@@ -72,7 +72,10 @@
 			>
 				{#each messages as { ownMessage, content }, i}
 					{#if ownMessage}
-						<div class="flex mt-4 justify-end">
+						<div
+							transition:fly={{ x: 200, duration: 400 }}
+							class="flex mt-4 justify-end"
+						>
 							<div
 								contenteditable
 								spellcheck="false"
@@ -91,7 +94,10 @@
 							</div>
 						</div>
 					{:else}
-						<div class="flex ml-4 mt-4">
+						<div
+							transition:fly={{ x: -200, duration: 400 }}
+							class="flex ml-4 mt-4"
+						>
 							<div
 								class="avatar bg-purple-500"
 								on:click={() => (ownMessage = !ownMessage)}
@@ -137,6 +143,7 @@
 
 	.header {
 		background: rgba(255, 255, 255, 0.6);
+		backdrop-filter: blur(10px);
 	}
 
 	.avatar {
