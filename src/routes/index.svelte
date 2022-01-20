@@ -53,7 +53,7 @@
 	}
 </script>
 
-<body class="p-4">
+<body class="p-2">
 	<div class="grid place-items-center text-center">
 		<main class="mt-4 rounded-md shadow-md w-full sm:w-96 ">
 			<section class="header flex justify-center p-4 rounded-t-md">
@@ -84,7 +84,7 @@
 								on:contextmenu={(e) => deleteMessage(e, i)}
 								on:input={(e) =>
 									(messages[i].content = e.target.innerText)}
-								class="ml-2 max-w-[10rem] sm:max-w-[14rem]"
+								class="ml-2 max-w-[11rem] sm:max-w-[14rem]"
 							>
 								{content}
 							</div>
@@ -114,7 +114,7 @@
 									console.log(e.target);
 									messages[i].content = e.target.innerText;
 								}}
-								class="ml-2 max-w-[10rem] sm:max-w-[14rem]"
+								class="ml-2 max-w-[11rem] sm:max-w-[14rem]"
 							>
 								{content}
 							</div>
@@ -151,7 +151,7 @@
 	}
 
 	.avatar {
-		@apply grid place-items-center text-white h-10 rounded-full cursor-pointer;
+		@apply grid place-items-center text-white h-10 w-10 rounded-full cursor-pointer;
 	}
 
 	.screen [contenteditable] {
