@@ -52,7 +52,7 @@
 	}
 </script>
 
-<body class="w-screen h-screen p-4">
+<body class="p-4">
 	<div class="grid place-items-center text-center">
 		<main class="mt-4 w-fit rounded-md shadow-md">
 			<section class="header flex justify-center w-96 p-4 rounded-t-md">
