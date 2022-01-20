@@ -57,7 +57,7 @@
 			</div>
 		</section>
 		<section
-			class="flex flex-col h-[500px] bg-white rounded-b-md overflow-y-scroll pb-4"
+			class="flex flex-col h-[500px] bg-white rounded-b-md overflow-y-scroll"
 			on:dblclick={addMessage}
 		>
 			{#each messages as { ownMessage, content }, i}
@@ -78,7 +78,7 @@
 						</div>
 					</div>
 				{:else}
-					<div class="flex ml-4 mt-5">
+					<div class="flex ml-4 mt-4">
 						<div
 							class="avatar bg-purple-500"
 							on:click={() => (ownMessage = !ownMessage)}
