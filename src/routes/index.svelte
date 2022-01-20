@@ -1,5 +1,5 @@
 <script lang="ts">
-	let otherPerson = "Saurabh Karmarkar";
+	let otherPerson = "The General";
 	$: initials = otherPerson
 		.split(" ")
 		.map((s) => s.charAt(0).toUpperCase())
@@ -13,7 +13,7 @@
 	let messages: Message[] = [
 		{
 			ownMessage: true,
-			content: "Hey any tips for the exam?",
+			content: "Hey, any tips for the exam?",
 		},
 		{
 			ownMessage: false,
