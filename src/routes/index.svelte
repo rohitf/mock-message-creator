@@ -31,7 +31,7 @@
 			...messages,
 			{
 				ownMessage: true,
-				content: "",
+				content: "🙂",
 			},
 		];
 	}
@@ -48,7 +48,13 @@
 	<main class="w-fit rounded-md shadow-md">
 		<section class="header flex justify-center w-96 p-4 rounded-t-md">
 			<i class="fas fa-comment-alt text-2xl" />
-			<div class="text-xl bg-transparent ml-3">{otherPerson}</div>
+			<div
+				contenteditable
+				class="text-xl bg-transparent ml-3"
+				bind:textContent={otherPerson}
+			>
+				{otherPerson}
+			</div>
 		</section>
 		<section
 			class="flex flex-col h-[500px] bg-white rounded-b-md overflow-y-scroll pb-4"
@@ -81,6 +87,7 @@
 						</div>
 						<div
 							contenteditable
+							on:contextmenu={(e) => deleteMessage(e, i)}
 							class="bg-gray-200 rounded-lg ml-2 p-3 text-left"
 						>
 							{content}
@@ -92,8 +99,8 @@
 	</main>
 	<h1 class="text-2xl text-gray-700">
 		<ul class="list-disc text-left">
-			<li>Double click screen to add message</li>
 			<li>Click name in header to edit</li>
+			<li>Double click screen to add message</li>
 			<li>Click message to edit</li>
 			<li>Click sender icon to switch sender</li>
 			<li>Right click message to remove</li>
